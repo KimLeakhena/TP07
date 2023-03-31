@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+    <script src="https://cdn.tailwindcss.com/3.2.4"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+<style>
+
+    .lds-heart {
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 80px;
+    transform: rotate(45deg);
+    transform-origin: 40px 40px;
+  }
+  .lds-heart div {
+    top: 32px;
+    left: 32px;
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    background: #977070;
+    animation: lds-heart 1.2s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+  .lds-heart div:after,
+  .lds-heart div:before {
+    content: " ";
+    position: absolute;
+    display: block;
+    width: 32px;
+    height: 32px;
+    background: #977070;
+  }
+  .lds-heart div:before {
+    left: -24px;
+    border-radius: 50% 0 0 50%;
+  }
+  .lds-heart div:after {
+    top: -24px;
+    border-radius: 50% 50% 0 0;
+  }
+  @keyframes lds-heart {
+    0% {
+      transform: scale(0.95);
+    }
+    5% {
+      transform: scale(1.1);
+    }
+    39% {
+      transform: scale(0.85);
+    }
+    45% {
+      transform: scale(1);
+    }
+    60% {
+      transform: scale(0.95);
+    }
+    100% {
+      transform: scale(0.9);
+    }
+  }
+ 
+    .material-symbols-outlined {
+      font-variation-settings:
+      'FILL' 0,
+      'wght' 400,
+      'GRAD' 0,
+      'opsz' 48
+    }
+   
+    .material-symbols-outlined {
+      font-variation-settings:
+      'FILL' 0,
+      'wght' 400,
+      'GRAD' 0,
+      'opsz' 48
+    }
+
+    .material-symbols-outlined {
+      font-variation-settings:
+      'FILL' 0,
+      'wght' 400,
+      'GRAD' 0,
+      'opsz' 48
+    }
+    
+    .material-symbols-outlined {
+    font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 48
+    }
+
+</style>
+    
+</head>
+
+<body>
+    <div class="w-[600px] h-[550px] bg-[#fff] border-4 border-black justify-center p-8 text-center mx-auto">
+        <div class="h-[150px] w-[200px] mx-auto p-8">
+            <img src="https://th.bing.com/th/id/OIP.JW-R2C03vwY7LCZBK4nVsQHaHa?pid=ImgDet&rs=1">
+        </div>
+        <div class="text-center font-bold text-4xl p-8  font-serif">
+           
+            <h1>Are You boring?</h1>
+        </div>
+        <button class="bg-indigo-500 font-serif text-white hover:bg-cyan-600 w-48 h-8 my-1 border-black border-2 rounded" onclick="fetchNewActivity()">Tell me
+            what to do
+        </button>
+        <!-- <div class="lds-heart"><div></div></div> -->
+        <div id="loading-text" hidden>
+            <div class="lds-heart"><div></div></div>
+        </div>
+       
+        <div id="Activity" hidden class="w-[425px] h-auto rounded bg-[#fecdd3]  my-2 rounded-md border-2 border-inherit mx-auto ">
+            
+            <div id="activity-name" class="font-bold my-2"></div>
+            <div class="text-left flex ml-0.5">
+                <span class="material-symbols-outlined">
+                    sell
+                    </span>
+                
+                <div >Type:</div>
+                <div id="activity-type"></div>
+            </div>
+            <div class="text-left flex  ">
+                <span class="material-symbols-outlined ">
+                    groups
+                    </span>
+                <div>Participant:</div>
+                <div id="activity-participants"></div>
+            </div>
+            <div class="text-left flex ">
+                <span class="material-symbols-outlined">
+                    attach_money
+                    </span>
+                <div>Price:</div>
+                <div id="activity-price"></div>
+            </div>
+            <div class="text-left flex ">
+                <span class="material-symbols-outlined">
+                    link
+                    </span>
+                <div>link:</div>
+                <div id="activity-link"></div>
+            </div> 
+        </div>
+    </div>
+    <script>
+        const loadingTextEle = document.getElementById("loading-text");
+        const activityNameEle= document.getElementById("activity-name");
+        const ActivityEle=document.getElementById("Activity");
+        const ActivityTypeEle = document.getElementById("activity-type");
+        const ActivityParticipantsEle = document.getElementById("activity-participants");
+        const ActivityPriceEle = document.getElementById("activity-price");
+        const ActivitylinkEle=document.getElementById("activity-link");
+        
+        function fetchNewActivity() {
+            activityNameEle.innerHTML = " ";
+            loadingTextEle.hidden = false;
+            ActivityEle.hidden=true;
+            fetch("https://www.boredapi.com/api/activity")
+                // loadingTextEle.hidden=true;
+                .then(async (res) => {
+                    loadingTextEle.hidden=true;
+                    let data = await res.json();
+                    console.log(data);
+                    activityNameEle.innerHTML = data["activity"];
+                    ActivityTypeEle.innerHTML = data["type"];
+                    ActivityParticipantsEle.innerHTML = data["participants"];
+                    ActivityPriceEle.innerHTML = data["price"];
+                    ActivitylinkEle.innerHTML=data["link"];
+
+                    ActivityEle.hidden=false;
+                });
+        }
+
+    </script>
+
+</body>
+
+</html>
